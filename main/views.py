@@ -5,13 +5,15 @@ from django.http import HttpResponse
 
 def home_page(request):
     content = {
-        'content': 'Домашняя страница',
-        'title': 'Хз что-то',
-        'list': ['das', 'das'],
-        'dict': {'lol': 3},
-        'bool': False
+        'title': 'Home - Главная',
+        'content': 'Магазин Мебели HOME'
     }
     return render(request, "main/index.html", content)
 
 def about(request):
-    return HttpResponse('About page')
+    content = {
+        'title': 'О нас',
+        'content': 'О нас',
+        'text': 'Информация о том почему наш магазин такой классный'
+    }
+    return render(request, "main/about.html", content)
