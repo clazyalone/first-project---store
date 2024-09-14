@@ -1,14 +1,21 @@
-from django.shortcuts import render 
+from django.shortcuts import render
 from django.http import HttpResponse
-
+from goods.models import Categories
 # Create your views here.
 
+
 def home_page(request):
+
+    categories = Categories.objects.all()
+
     content = {
         'title': 'Home - Главная',
-        'content': 'Магазин Мебели HOME'
+        'content': 'Магазин Мебели HOME',
+        'categories': categories
     }
+    print(categories)
     return render(request, "main/index.html", content)
+
 
 def about(request):
     content = {
