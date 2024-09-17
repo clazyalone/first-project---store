@@ -44,3 +44,11 @@ class Products(models.Model):
 
     def __str__(self) -> str:
         return f'{self.name} Количество - {self.quantity}'
+
+    def product_id(self):
+        return f"{self.id:05}"
+
+    def sell_price(self):
+        if self.discount:
+            return f'{round(self.price - (self.price * self.discount / 100), 2)}'
+        return self.price

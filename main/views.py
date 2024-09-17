@@ -6,14 +6,10 @@ from goods.models import Categories
 
 def home_page(request):
 
-    categories = Categories.objects.all()
-
     content = {
         'title': 'Home - Главная',
         'content': 'Магазин Мебели HOME',
-        'categories': categories
     }
-    print(categories)
     return render(request, "main/index.html", content)
 
 
