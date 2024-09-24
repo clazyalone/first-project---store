@@ -124,10 +124,10 @@
                 </ul>
               </li>
             </ul>
-            <form class="d-flex" role="search">
+            <form class="d-flex" role="search" action="{% url "catalog:search" %}" method="get">
               <input
                 class="form-control me-2"
-                type="search"
+                type="search" name="q"
                 placeholder="Search"
                 aria-label="Search"
               />
