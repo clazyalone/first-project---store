@@ -1,4 +1,4 @@
-{% extends "main/base.html" %} {% load static %}{% block content %} {% load goods_tags %}
+h{% extends "main/base.html" %} {% load static %}{% block content %} {% load goods_tags %}
 <div class="row">
   <!-- Форма фильтров -->
   <div class="dropdown mb-2">
@@ -72,6 +72,14 @@
     </form>
   </div>
 
+    {% if request.GET.q %}
+    <h3 class="mt-4">Результаты поиска по запросу {{request.GET.q}} </h3>
+    {% if not goods %}
+    <link rel="stylesheet" href="{% static 'deps/css/my_footer_css.css' %}" />
+    <h2 class="mt-4">По вашему запросу ничего не найдено</h2>
+    {% endif %}
+    {% endif %}
+
   <!-- Карта товара -->
   {% for product in goods %}
   <div class="col-lg-4 col-md-6 p-4">
@@ -86,9 +94,25 @@
       class="card-img-top" alt="..." /> {% endif %}
       <div class="card-body">
         <a href="{% url "catalog:product" product.slug %}">
-          <p class="card-title">{{ product.name }}</p>
+          <p class="card-title">
+            {% autoescape off %}
+              {% if  product.headline%}
+              {{product.headline}}
+              {% else %}
+              {{ product.name }}
+              {% endif %}
+            {% endautoescape %}
+          </p>
         </a>
-        <p class="card-text">{{ product.description|truncatechars:35 }}</p>
+        <p class="card-text">
+          {% autoescape off %}
+            {% if  product.bodyline%}
+            {{product.bodyline}}
+            {% else %}
+            {{ product.description|truncatechars:35 }}
+            {% endif %}
+          {% endautoescape %}
+          </p>
         <p class="product_id">id: {{ product.product_id }}</p>
         <div class="d-flex justify-content-between">
           {% if product.discount %}
@@ -109,6 +133,7 @@
   </div>
   {% endfor %}
   <!-- Пагинация -->
+  {% if goods %}
   <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center my-4">
       <div class="custom-shadow d-flex">
@@ -130,6 +155,8 @@
       </div>
     </ul>
   </nav>
+  {% endif %}
+
   {% endblock content %} {% block footer %}
   <footer class="py-4 bg-dark">
     <div class="container">
