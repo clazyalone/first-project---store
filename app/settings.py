@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.postgres",
 
     "debug_toolbar",
 
@@ -82,8 +83,13 @@ WSGI_APPLICATION = "app.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        # Используйте postgresql_psycopg2
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "home",
+        "USER": "home",  # Проверьте, что пользователь правильный
+        "PASSWORD": "home",
+        "HOST": "localhost",
+        "PORT": "5432",  # Убедитесь, что PostgreSQL запущен на этом порту
     }
 }
 
@@ -106,23 +112,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-REST_FRAMEWORK = {
-    'DEFAULT_RENDERER_CLASSES': (
-        'rest_framework.renderers.JSONRenderer',
-        'rest_framework.renderers.BrowsableAPIRenderer',
-    ),
-    'DEFAULT_PARSER_CLASSES': (
-        'rest_framework.parsers.JSONParser',
-        'rest_framework.parsers.FormParser',
-        'rest_framework.parsers.MultiPartParser',
-    ),
-    'REST_FRAMEWORK': {
-        'DEFAULT_META': {
-            'HTTP_CONTENT_TYPE': 'application/json',
-        },
-    },
-}
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
